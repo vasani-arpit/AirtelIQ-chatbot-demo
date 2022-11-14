@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+        "rootDir": "./",
+        "baseUrl": "./",
+        "outDir": "dist",
+        "emitDecoratorMetadata": true,
+        "declaration": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "strict": true,
+        "target": "es6",
+        // "allowJs": true,
+        // "noEmit": true,
+        "types": [
+            "node"
+        ],
+        "paths": {
+            "@overnightjs/core": [
+                "../src/core"
+            ],
+            "@overnightjs/jwt": [
+                "../src/jwt"
+            ],
+            "@overnightjs/logger": [
+                "../src/logger"
+            ]
+        }
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "**/node_modules/"
+    ]
+}
