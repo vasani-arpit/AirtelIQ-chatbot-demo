@@ -3,8 +3,8 @@ import { StatusCodes } from 'http-status-codes';
 import { Controller, Get, Middleware, Post } from '@overnightjs/core';
 import { Logger } from '@overnightjs/logger';
 import { payloadCheck, validationMiddleware } from '../middlewares';
-import { webhookMessage } from 'src/@types';
-import { sendTextMessage } from 'src/utils';
+import { sendTextMessage } from '../utils';
+import { webhookMessage } from '../@types';
 
 
 @Controller('webhook')
