@@ -7,9 +7,14 @@ const AIRTEL_PHONE = process.env.AIRTEL_PHONE
 
 const sendRequest = async (data: textMessage) => {
 
+    let url = 'https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/session/send/text'
+    if (data.list != undefined) {
+        url = 'https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/session/send/interactive/list'
+    }
+
     const config = {
         method: 'post',
-        url: 'https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/session/send/text',
+        url,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Basic ' + AIRTEL_CRED

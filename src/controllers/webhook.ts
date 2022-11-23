@@ -39,6 +39,7 @@ export class webhookController {
                 case "hy":
                 case "hi":
                 case "hii":
+                case "Hi":
                 case "yo":
                     await sendTextMessage(messageObject.from, "Hi, 🙋‍♂️ Welcome to our whatsapp store.", messageObject.sessionId)
                     await sendCategoryList(messageObject.from, "Please choose category to start browsing our store", messageObject.sessionId)
