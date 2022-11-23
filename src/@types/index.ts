@@ -22,5 +22,15 @@ export interface textMessage {
     "from": string | undefined,
     "message": {
         "text": string
+    },
+    list?: {
+        heading: string,
+        options: ListOption[]
     }
+}
+
+interface ListOption {
+    "tag": string,
+    "title": string,
+    "description": string
 }

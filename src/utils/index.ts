@@ -31,7 +31,46 @@ export const sendTextMessage = async (to: string, message: string, sessionId: st
         }
     }
 
-    return sendRequest(data)
+    return await sendRequest(data)
+}
+
+export const sendCategoryList = async (to: string, message: string, sessionId: string) => {
+
+    const data: textMessage = {
+        sessionId,
+        to,
+        "from": AIRTEL_PHONE,
+        "message": {
+            "text": message
+        },
+        "list": {
+            "heading": "categories",
+            "options": [
+                {
+                    "tag": "1",
+                    "title": "👗 Frock",
+                    "description": ""
+                },
+                {
+                    "tag": "2",
+                    "title": "👕 Crop Top",
+                    "description": ""
+                },
+                {
+                    "tag": "3",
+                    "title": "👖 Plazzo",
+                    "description": ""
+                },
+                {
+                    "tag": "4",
+                    "title": "🩳 Shorts",
+                    "description": ""
+                }
+            ]
+        }
+    }
+
+    return await sendRequest(data)
 }
 
 

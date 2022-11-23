@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { Controller, Get, Middleware, Post } from '@overnightjs/core';
 import { Logger } from '@overnightjs/logger';
 import { payloadCheck, validationMiddleware } from '../middlewares';
-import { sendTextMessage } from '../utils';
+import { sendCategoryList, sendTextMessage } from '../utils';
 import { webhookMessage } from '../@types';
 
 
@@ -30,7 +30,26 @@ export class webhookController {
         });
 
         const messageObject = req.body as webhookMessage
-        await sendTextMessage(messageObject.from, "Echo " + messageObject.message.text.body, messageObject.sessionId)
+
+        if (messageObject.message.type == "image") {
+            await sendTextMessage(messageObject.from, "I see image", messageObject.sessionId)
+        }
+        if (messageObject.message.type == "text") {
+            switch (messageObject.message.text.body) {
+                case "hy":
+                case "hi":
+                case "hii":
+                case "yo":
+                    await sendTextMessage(messageObject.from, "Hi, 🙋‍♂️ Welcome to our whatsapp store.", messageObject.sessionId)
+                    await sendCategoryList(messageObject.from, "Please choose category to start browsing our store", messageObject.sessionId)
+
+                    break;
+
+                default:
+                    await sendTextMessage(messageObject.from, "Echo " + messageObject.message.text.body, messageObject.sessionId)
+                    break;
+            }
+        }
 
     }
 
