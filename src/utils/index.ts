@@ -1,4 +1,4 @@
-import { textMessage } from "src/@types";
+import { textMessage } from "../@types";
 
 var axios = require('axios');
 const AIRTEL_CRED = process.env.AIRTEL_CRED
