@@ -1,14 +1,10 @@
-/**
- * Example Controller for the Overnight web-framework.
- *
- * created by Sean Maxwell Aug 26, 2018
- */
-
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { Controller, Get, Middleware, Post } from '@overnightjs/core';
 import { Logger } from '@overnightjs/logger';
 import { payloadCheck, validationMiddleware } from '../middlewares';
+import { webhookMessage } from 'src/@types';
+import { sendTextMessage } from 'src/utils';
 
 
 @Controller('webhook')
@@ -25,14 +21,17 @@ export class webhookController {
 
     @Post()
     @Middleware([...validationMiddleware, payloadCheck])
-    private add(req: Request, res: Response) {
+    private async add(req: Request, res: Response) {
         // Logging the body to see what I am getting 
         Logger.Info(req.body, true);
-
         //replying with 200 OK so that WA won't call the webhook again
         res.status(StatusCodes.OK).json({
             message: 'add_called',
         });
+
+        const messageObject = req.body as webhookMessage
+        await sendTextMessage(messageObject.from, "Echo " + messageObject.message, messageObject.sessionId)
+
     }
 
 }

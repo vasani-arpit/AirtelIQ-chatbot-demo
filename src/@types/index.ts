@@ -14,4 +14,13 @@ export interface Message {
 
 export interface Text {
     body: string
-}  
+}
+
+export interface textMessage {
+    sessionId: string,
+    "to": string,
+    "from": string | undefined,
+    "message": {
+        "text": string
+    }
+}
