@@ -30,7 +30,7 @@ export class webhookController {
         });
 
         const messageObject = req.body as webhookMessage
-        await sendTextMessage(messageObject.from, "Echo " + messageObject.message, messageObject.sessionId)
+        await sendTextMessage(messageObject.from, "Echo " + messageObject.message.text.body, messageObject.sessionId)
 
     }
 
