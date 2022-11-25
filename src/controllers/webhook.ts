@@ -3,8 +3,10 @@ import { StatusCodes } from 'http-status-codes';
 import { Controller, Get, Middleware, Post } from '@overnightjs/core';
 import { Logger } from '@overnightjs/logger';
 import { payloadCheck, validationMiddleware } from '../middlewares';
-import { downloadImage, sendCategoryList, sendTextMessage } from '../utils';
+import { checkImage, downloadImage, sendCategoryList, sendTextMessage } from '../utils';
 import { webhookMessage } from '../@types';
+import { products } from '../utils/products.json'
+
 
 
 @Controller('webhook')
@@ -37,6 +39,11 @@ export class webhookController {
             await sendTextMessage(messageObject.from, "Please wait while I check your image.😊", messageObject.sessionId)
             const filePath = await downloadImage(messageObject.from, messageObject.message.image.id, messageObject.businessId, messageObject.sessionId)
             console.log({ filePath })
+            // Check the image if it belongs to our products
+            if (filePath) {
+                const results = await checkImage("./" + filePath)
+                // send message if they want to buy it or want to explore other products
+            }
         } else if (messageObject.message.type == "text") {
             switch (messageObject.message.text.body) {
                 case "hy":

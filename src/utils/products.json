@@ -1,0 +1,114 @@
+{
+    "products": [
+        {
+            "designNo": "818 DS",
+            "size": "22X32",
+            "price": "339",
+            "category": "LONG FROCK",
+            "inStock": true,
+            "productImages": "media/20221103_183012.jpg"
+        },
+        {
+            "designNo": "248 DS",
+            "size": "22X32",
+            "price": "440",
+            "category": "LONG FROCK",
+            "inStock": true,
+            "productImages": "media/20221103_183513.jpg"
+        },
+        {
+            "designNo": "5558 SIR",
+            "size": "22X32",
+            "price": "350",
+            "category": "LONG FROCK",
+            "inStock": true,
+            "productImages": "media/cc73cfbe428065417528.jpeg"
+        },
+        {
+            "designNo": "818 DS,",
+            "size": "22X32",
+            "price": "339",
+            "category": "LONG FROCK",
+            "inStock": true,
+            "productImages": "media/20221103_183943.jpg"
+        },
+        {
+            "designNo": "180 KLM",
+            "size": "22X32",
+            "price": "290",
+            "category": "LONG FROCK",
+            "inStock": true,
+            "productImages": "media/3f3f52a62900b4b189f2.jpeg"
+        },
+        {
+            "designNo": "5953 SN",
+            "size": "22X32",
+            "price": "366",
+            "category": "PLAZZO",
+            "inStock": true,
+            "productImages": "media/20221114_181846.jpg",
+            "createdAt": {
+                "$date": "2021-07-22T08:23:43.818Z"
+            }
+        },
+        {
+            "designNo": "6496 SN",
+            "size": "22X32",
+            "price": "339",
+            "category": "PLAZZO",
+            "inStock": true,
+            "productImages": "media/20221119_151831.jpg"
+        },
+        {
+            "designNo": "604 SIR",
+            "size": "22X32",
+            "price": "605",
+            "category": "PLAZZO",
+            "inStock": true,
+            "productImages": "media/20221103_133747.jpg"
+        },
+        {
+            "designNo": "50163 YSN",
+            "size": "22X32",
+            "price": "378",
+            "category": "PLAZZO",
+            "inStock": true,
+            "productImages": "media/20221103_134715.jpg"
+        },
+        {
+            "designNo": "2625 SBD",
+            "size": "22X32",
+            "price": "258",
+            "category": "IMPORTED CAPRI",
+            "inStock": true,
+            "productImages": "media/20221110_162851.jpg",
+            "createdAt": {
+                "$date": "2021-07-22T08:23:19.397Z"
+            }
+        },
+        {
+            "designNo": "7059 SN",
+            "size": "22X32",
+            "price": "302",
+            "category": "IMPORTED CAPRI",
+            "inStock": true,
+            "productImages": "media/20221110_163019.jpg"
+        },
+        {
+            "designNo": "2662 SBD",
+            "size": "22X32",
+            "price": "292",
+            "category": "IMPORTED CAPRI",
+            "inStock": true,
+            "productImages": "media/20221110_162416.jpg"
+        },
+        {
+            "designNo": "4059 R",
+            "size": "22X32",
+            "price": "248",
+            "category": "IMPORTED CAPRI",
+            "inStock": true,
+            "productImages": "media/20221110_162706.jpg"
+        }
+    ]
+}

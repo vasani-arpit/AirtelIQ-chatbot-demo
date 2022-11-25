@@ -1,6 +1,7 @@
 import { textMessage } from "../@types";
 import { writeFileSync } from "fs";
 import fetch from 'node-fetch';
+import { exec } from "child_process";
 
 import axios from 'axios';
 const AIRTEL_CRED = process.env.AIRTEL_CRED
@@ -62,6 +63,7 @@ export const downloadImage = async (to: string, imageId: string, businessID: str
         return `media/${fileName}.jpg`
     } catch (error) {
         console.error(error)
+        await sendTextMessage(to, `😟 Sorry ! There was an error. Please try after sometime.`, sessionId)
         return null
     }
 
@@ -86,11 +88,6 @@ export const sendCategoryList = async (to: string, message: string, sessionId: s
                     "description": ""
                 },
                 {
-                    "tag": "2",
-                    "title": "👕 Crop Top",
-                    "description": ""
-                },
-                {
                     "tag": "3",
                     "title": "👖 Plazzo",
                     "description": ""
@@ -107,6 +104,23 @@ export const sendCategoryList = async (to: string, message: string, sessionId: s
     return await sendMessage(data)
 }
 
+
+export const checkImage = async (filePath: string) => {
+
+    // haha. Can't share this code publicly. this has all the magic into it
+    exec(__dirname + "\\checkimage " + filePath, (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+    });
+
+}
 
 
 
