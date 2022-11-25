@@ -124,7 +124,9 @@ export const checkImage = async (filePath: string) => {
 
 export const sendImages = async (businessId: string, to: string, sessionId: string, products: products[]) => {
 
-    products.forEach(async (product, i) => {
+    for (let i = 0; i < products.length; i++) {
+        const product = products[i];
+        console.log("Upload product", product.category, product.designNo)
         var FormData = require('form-data');
         var fs = require('fs');
         var data = new FormData();
@@ -143,8 +145,10 @@ export const sendImages = async (businessId: string, to: string, sessionId: stri
         };
 
         const mediaID = await axios(config)
+        console.log("Product uploaded", mediaID.data)
         await sendImageMessageWithButtons(mediaID.data.mediaId, to, sessionId, product)
-    })
+
+    }
 
 }
 
@@ -157,6 +161,7 @@ export const delay = async (time: number) => {
 }
 
 async function sendImageMessageWithButtons(mediaId: string, to: string, sessionId: string, product: products) {
+    console.log("Sending image message")
     var data = JSON.stringify({
         "sessionId": sessionId,
         "to": to,
@@ -164,10 +169,10 @@ async function sendImageMessageWithButtons(mediaId: string, to: string, sessionI
         "mediaAttachment": {
             "type": "IMAGE",
             "id": mediaId,
-            "caption": ""
+            "caption": " "
         },
         "message": {
-            "text": `${product.category}\nprice: ₹${product.price}\n_Feel free to forward this image to your friends. when they forward it us, we will automatically add into their cart._`
+            "text": `${product.category}\nprice: ₹${product.price}`
         },
         "buttons": [
             {
@@ -191,6 +196,6 @@ async function sendImageMessageWithButtons(mediaId: string, to: string, sessionI
         data: data
     };
 
-    return await axios(config)
+    return await axios(config).catch(console.error)
 
 }
