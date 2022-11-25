@@ -18,7 +18,7 @@ export async function payloadCheck(req: Request, res: Response, next: NextFuncti
     try {
         var errorValidation = validationResult(req);
         if (!errorValidation.isEmpty()) {
-            console.log("Webhook received. Didn't passed the validation.", req.body)
+            console.log("Webhook received. Didn't passed the validation.", JSON.stringify(req.body))
             return res.status(StatusCodes.OK).json({ message: "Thanks" });
         }
         next()

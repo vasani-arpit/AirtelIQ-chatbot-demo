@@ -130,23 +130,19 @@ export const sendImages = async (businessId: string, to: string, sessionId: stri
         var FormData = require('form-data');
         var fs = require('fs');
         var data = new FormData();
-        data.append('file', fs.createReadStream(product.productImages));
+        data.append('file', fs.createReadStream(product.productImages), product.productImages);
         data.append('type', 'IMAGE');
         data.append('businessId', businessId);
 
-        var config = {
-            method: 'post',
-            url: 'https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/session/media',
+        let mediaId = await fetch('https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/session/media', {
+            method: 'POST',
             headers: {
-                'Authorization': 'Basic ' + AIRTEL_CRED,
-                ...data.getHeaders()
+                'Authorization': 'Basic ' + AIRTEL_CRED
             },
-            data: data
-        };
-
-        const mediaID = await axios(config)
-        console.log("Product uploaded", mediaID.data)
-        await sendImageMessageWithButtons(mediaID.data.mediaId, to, sessionId, product)
+            body: data // Here, stringContent or bufferContent would also work
+        }).then(res => res.json())
+        console.log(mediaId)
+        await sendImageMessageWithButtons(mediaId.mediaId, to, sessionId, product)
 
     }
 

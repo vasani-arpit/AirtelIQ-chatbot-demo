@@ -62,11 +62,17 @@ export class webhookController {
         } else if (messageObject.message.type == "interactive") {
             // THis is a list reply
             if (messageObject.message.interactive?.type == "list_reply") {
-                let categoryRequest = messageObject.message.interactive?.list_reply.title
+                let categoryRequest = messageObject.message.interactive?.list_reply?.title
                 const productsForRequestedCategory = products.filter(p => p.category == categoryRequest)
                 console.log("Products found ==>", productsForRequestedCategory.length)
                 await sendImages(messageObject.businessId, messageObject.from, messageObject.sessionId, productsForRequestedCategory)
 
+            } else if (messageObject.message.interactive?.type == "button_reply") {
+                if (messageObject.message.interactive?.button_reply.id == "Y") {
+                    await sendTextMessage(messageObject.from, "🙏 Thanks for your order. We will call you if we need more information.", messageObject.sessionId)
+                } else {
+                    await sendCategoryList(messageObject.from, "Please choose category to start browsing our store", messageObject.sessionId)
+                }
             } else {
                 await sendTextMessage(messageObject.from, "Sorry !!  Can't understand your message.", messageObject.sessionId)
                 await sendCategoryList(messageObject.from, "Please choose category to start browsing our store", messageObject.sessionId)

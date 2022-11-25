@@ -15,11 +15,15 @@ export interface Message {
         mime_type: string
     }
     interactive?: {
-        "list_reply": {
+        list_reply?: {
             "id": string,
             "title": string
         },
-        "type": "list_reply"
+        type: "list_reply",
+        button_reply: {
+            "id": string,
+            "title": string
+        }
     }
 }
 
