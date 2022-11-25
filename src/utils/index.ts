@@ -153,7 +153,7 @@ export const delay = async (time: number) => {
     })
 }
 
-async function sendImageMessageWithButtons(mediaId: string, to: string, sessionId: string, product: products) {
+export async function sendImageMessageWithButtons(mediaId: string, to: string, sessionId: string, product: products) {
     console.log("Sending image message")
     var data = JSON.stringify({
         "sessionId": sessionId,
@@ -165,7 +165,7 @@ async function sendImageMessageWithButtons(mediaId: string, to: string, sessionI
             "caption": " "
         },
         "message": {
-            "text": `${product.category}\nprice: ₹${product.price}`
+            "text": `Category: ${product.category}\nPrice: *₹${product.price} only*`
         },
         "buttons": [
             {

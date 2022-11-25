@@ -4,7 +4,7 @@ import { Controller, Get, Middleware, Post } from '@overnightjs/core';
 import { Logger } from '@overnightjs/logger';
 import { payloadCheck, validationMiddleware } from '../middlewares';
 import { checkImage, delay, downloadImage, sendCategoryList, sendImages, sendTextMessage } from '../utils';
-import { webhookMessage } from '../@types';
+import { products as product, webhookMessage } from '../@types';
 import { products } from '../utils/products.json'
 
 
@@ -42,8 +42,10 @@ export class webhookController {
             // Check the image if it belongs to our products
             if (filePath) {
                 const results = await checkImage("./" + filePath)
-                const chosenProduct = JSON.parse(results as string)
+                const chosenProduct: product[] = JSON.parse(results as string)
                 console.log({ chosenProduct })
+                await sendTextMessage(messageObject.from, "Nice choice !! We have that *in stock*. Here is more info 👇", messageObject.sessionId)
+                await sendImages(messageObject.businessId, messageObject.from, messageObject.sessionId, chosenProduct)
                 // send message if they want to buy it or want to explore other products
             }
         } else if (messageObject.message.type == "text") {
