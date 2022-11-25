@@ -1,7 +1,8 @@
 import { textMessage } from "../@types";
 import { writeFileSync } from "fs";
+import fetch from 'node-fetch';
 
-var axios = require('axios');
+import axios from 'axios';
 const AIRTEL_CRED = process.env.AIRTEL_CRED
 const AIRTEL_PHONE = process.env.AIRTEL_PHONE
 
@@ -42,24 +43,22 @@ export const sendTextMessage = async (to: string, message: string, sessionId: st
 
 export const downloadImage = async (to: string, imageId: string, businessID: string, sessionId: string) => {
 
-    const config = {
-        method: 'get',
-        url: `https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/download/media?mediaId=${imageId}&businessId=${businessID}`,
-        headers: {
-            'Authorization': 'Basic ' + AIRTEL_CRED
-        }
-    };
-
     try {
-        const response = await axios(config)
+        let response = await fetch(`https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/download/media?mediaId=${imageId}&businessId=${businessID}`, {
+            headers: {
+                'Authorization': 'Basic ' + AIRTEL_CRED
+            }
+        });
+        const data = await response.json()
+        // console.log(data)
         const fileName = +new Date()
-        console.log(Object.keys(response.data))
-        if (response.data.contentType.subtype != "jpeg") {
+        // console.log(Object.keys(response.data))
+        if (data.contentType.subtype != "jpeg") {
             await sendTextMessage(to, `😟 Sorry ! We only support jpeg images.`, sessionId)
             return null
         }
         // save image to media folder
-        writeFileSync(`media/${fileName}.jpg`, response.data.bytes, 'base64');
+        writeFileSync(`media/${fileName}.jpg`, data.bytes, 'base64');
         return `media/${fileName}.jpg`
     } catch (error) {
         console.error(error)
