@@ -42,6 +42,7 @@ export class webhookController {
             // Check the image if it belongs to our products
             if (filePath) {
                 const results = await checkImage("./" + filePath)
+                console.log({ results })
                 // send message if they want to buy it or want to explore other products
             }
         } else if (messageObject.message.type == "text") {

@@ -106,19 +106,16 @@ export const sendCategoryList = async (to: string, message: string, sessionId: s
 
 
 export const checkImage = async (filePath: string) => {
-
     // haha. Can't share this code publicly. this has all the magic into it
-    exec(__dirname + "/checkimage " + filePath, (error, stdout, stderr) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-    });
+    return new Promise((resolve, reject) => {
+        exec(__dirname + "/checkimage " + filePath, (error, stdout, stderr) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            resolve(JSON.parse(stdout));
+        });
+    })
 
 }
 
