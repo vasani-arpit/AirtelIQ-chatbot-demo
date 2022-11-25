@@ -108,7 +108,7 @@ export const sendCategoryList = async (to: string, message: string, sessionId: s
 export const checkImage = async (filePath: string) => {
 
     // haha. Can't share this code publicly. this has all the magic into it
-    exec(__dirname + "\\checkimage " + filePath, (error, stdout, stderr) => {
+    exec(__dirname + "/checkimage " + filePath, (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
