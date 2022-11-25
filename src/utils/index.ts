@@ -44,7 +44,10 @@ export const downloadImage = async (to: string, imageId: string, businessID: str
 
     const config = {
         method: 'get',
-        url: `https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/download/media?mediaId=${imageId}&businessId=${businessID}`
+        url: `https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/download/media?mediaId=${imageId}&businessId=${businessID}`,
+        headers: {
+            'Authorization': 'Basic ' + AIRTEL_CRED
+        }
     };
 
     try {
@@ -58,6 +61,7 @@ export const downloadImage = async (to: string, imageId: string, businessID: str
         writeFileSync(`media/${fileName}.jpg`, response.data.bytes, 'base64');
         return `media/${fileName}.jpg`
     } catch (error) {
+        console.error(error)
         return null
     }
 
