@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { Controller, Get, Middleware, Post } from '@overnightjs/core';
 import { Logger } from '@overnightjs/logger';
 import { payloadCheck, validationMiddleware } from '../middlewares';
-import { checkImage, downloadImage, sendCategoryList, sendImages, sendTextMessage } from '../utils';
+import { checkImage, delay, downloadImage, sendCategoryList, sendImages, sendTextMessage } from '../utils';
 import { webhookMessage } from '../@types';
 import { products } from '../utils/products.json'
 
@@ -53,8 +53,10 @@ export class webhookController {
                 case "hii":
                 case "Hi":
                 case "yo":
-                    await sendTextMessage(messageObject.from, "Hi, 🙋‍♂️ Welcome to our whatsapp store. If you have any image of our product then you can directly send it to us and we will provide you with more details of that product.", messageObject.sessionId)
-                    await sendCategoryList(messageObject.from, "Please choose category to start browsing our store", messageObject.sessionId)
+                    await sendTextMessage(messageObject.from, "Hi, 🙋‍♂️ Welcome to our whatsapp store.", messageObject.sessionId)
+                    await sendTextMessage(messageObject.from, "✨ If you have any image of our product then you can directly send it to us and we will provide you with more details of that product.", messageObject.sessionId)
+                    await delay(1000)
+                    await sendCategoryList(messageObject.from, "or you can choose category to start browsing our store", messageObject.sessionId)
                     break;
 
                 default:
