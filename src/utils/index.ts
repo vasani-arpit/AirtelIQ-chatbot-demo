@@ -1,4 +1,4 @@
-import { textMessage } from "../@types";
+import { products, textMessage } from "../@types";
 import { writeFileSync } from "fs";
 import fetch from 'node-fetch';
 import { exec } from "child_process";
@@ -80,7 +80,7 @@ export const sendCategoryList = async (to: string, message: string, sessionId: s
             "text": message
         },
         "list": {
-            "heading": "categories",
+            "heading": "Categories",
             "options": [
                 {
                     "tag": "1",
@@ -122,10 +122,75 @@ export const checkImage = async (filePath: string) => {
 
 }
 
+export const sendImages = async (businessId: string, to: string, sessionId: string, products: products[]) => {
+
+    products.forEach(async (product, i) => {
+        var FormData = require('form-data');
+        var fs = require('fs');
+        var data = new FormData();
+        data.append('file', fs.createReadStream(product.productImages));
+        data.append('type', 'IMAGE');
+        data.append('businessId', businessId);
+
+        var config = {
+            method: 'post',
+            url: 'https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/session/media',
+            headers: {
+                'Authorization': 'Basic ' + AIRTEL_CRED,
+                ...data.getHeaders()
+            },
+            data: data
+        };
+
+        const mediaID = await axios(config)
+        await sendImageMessageWithButtons(mediaID.data.mediaId, to, sessionId, product)
+    })
+
+}
+
 
 
 export const delay = async (time: number) => {
     return new Promise((resolve) => {
         setTimeout(resolve, time)
     })
+}
+
+async function sendImageMessageWithButtons(mediaId: string, to: string, sessionId: string, product: products) {
+    var data = JSON.stringify({
+        "sessionId": sessionId,
+        "to": to,
+        "from": AIRTEL_PHONE,
+        "mediaAttachment": {
+            "type": "IMAGE",
+            "id": mediaId,
+            "caption": ""
+        },
+        "message": {
+            "text": `${product.category}\nprice: ₹${product.price}\n_Feel free to forward this image to your friends. when they forward it us, we will automatically add into their cart._`
+        },
+        "buttons": [
+            {
+                "tag": "N",
+                "title": "Explore More"
+            },
+            {
+                "tag": "Y",
+                "title": "Order Now"
+            }
+        ]
+    });
+
+    var config = {
+        method: 'post',
+        url: 'https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/session/send/interactive/buttons',
+        headers: {
+            'Authorization': 'Basic ' + AIRTEL_CRED,
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
+
+    return await axios(config)
+
 }

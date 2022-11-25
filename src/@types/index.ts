@@ -14,6 +14,25 @@ export interface Message {
         id: string,
         mime_type: string
     }
+    interactive?: {
+        "list_reply": {
+            "id": string,
+            "title": string
+        },
+        "type": "list_reply"
+    }
+}
+
+export interface products {
+    "designNo": string,
+    "size": string,
+    "price": string,
+    "category": string,
+    "inStock": boolean,
+    "productImages": string,
+    "createdAt"?: {
+        "$date": string
+    }
 }
 
 export interface Text {
