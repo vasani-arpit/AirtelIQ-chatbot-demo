@@ -53,6 +53,7 @@ export const downloadImage = async (to: string, imageId: string, businessID: str
     try {
         const response = await axios(config)
         const fileName = +new Date()
+        console.log(Object.keys(response.data))
         if (response.data.contentType.subtype != "jpeg") {
             await sendTextMessage(to, `😟 Sorry ! We only support jpeg images.`, sessionId)
             return null
