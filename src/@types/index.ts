@@ -4,6 +4,10 @@ export interface webhookMessage {
     sessionId: string
     from: string
     businessId: string
+    image?: {
+        id: string,
+        mime_type: string
+    }
 }
 
 export interface Message {

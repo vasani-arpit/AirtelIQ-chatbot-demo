@@ -1,11 +1,12 @@
 import { textMessage } from "../@types";
+import { writeFileSync } from "fs";
 
 var axios = require('axios');
 const AIRTEL_CRED = process.env.AIRTEL_CRED
 const AIRTEL_PHONE = process.env.AIRTEL_PHONE
 
 
-const sendRequest = async (data: textMessage) => {
+const sendMessage = async (data: textMessage) => {
 
     let url = 'https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/session/send/text'
     if (data.list != undefined) {
@@ -36,7 +37,31 @@ export const sendTextMessage = async (to: string, message: string, sessionId: st
         }
     }
 
-    return await sendRequest(data)
+    return await sendMessage(data)
+}
+
+export const downloadImage = async (to: string, imageId: string, businessID: string, sessionId: string) => {
+
+    const config = {
+        method: 'get',
+        url: `https://iqwhatsapp.airtel.in:443/gateway/airtel-xchange/basic/whatsapp-manager/v1/download/media?mediaId=${imageId}&businessId=${businessID}`
+    };
+
+    try {
+        const response = await axios(config)
+        const fileName = +new Date()
+        if (response.data.contentType.subtype != "jpeg") {
+            await sendTextMessage(to, `😟 Sorry ! We only support jpeg images.`, sessionId)
+            return null
+        }
+        // save image to media folder
+        writeFileSync(`media/${fileName}.jpg`, response.data.bytes, 'base64');
+        return `media/${fileName}.jpg`
+    } catch (error) {
+        return null
+    }
+
+
 }
 
 export const sendCategoryList = async (to: string, message: string, sessionId: string) => {
@@ -75,7 +100,7 @@ export const sendCategoryList = async (to: string, message: string, sessionId: s
         }
     }
 
-    return await sendRequest(data)
+    return await sendMessage(data)
 }
 
 

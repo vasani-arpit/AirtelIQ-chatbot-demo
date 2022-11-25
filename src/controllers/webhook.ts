@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { Controller, Get, Middleware, Post } from '@overnightjs/core';
 import { Logger } from '@overnightjs/logger';
 import { payloadCheck, validationMiddleware } from '../middlewares';
-import { sendCategoryList, sendTextMessage } from '../utils';
+import { downloadImage, sendCategoryList, sendTextMessage } from '../utils';
 import { webhookMessage } from '../@types';
 
 
@@ -31,10 +31,12 @@ export class webhookController {
 
         const messageObject = req.body as webhookMessage
 
-        if (messageObject.message.type == "image") {
-            await sendTextMessage(messageObject.from, "I see image", messageObject.sessionId)
-        }
-        if (messageObject.message.type == "text") {
+        if (messageObject.message.type == "image" && messageObject.image != undefined) {
+            // downloadoing the image
+            await sendTextMessage(messageObject.from, "Please wait while I check your image.😊", messageObject.sessionId)
+            const filePath = await downloadImage(messageObject.from, messageObject.image.id, messageObject.businessId, messageObject.sessionId)
+            console.log({ filePath })
+        } else if (messageObject.message.type == "text") {
             switch (messageObject.message.text.body) {
                 case "hy":
                 case "hi":
@@ -50,6 +52,10 @@ export class webhookController {
                     await sendTextMessage(messageObject.from, "Echo " + messageObject.message.text.body, messageObject.sessionId)
                     break;
             }
+        } else {
+            // couldn't understand your message
+            await sendTextMessage(messageObject.from, "Sorry !!  Can't understand your message.", messageObject.sessionId)
+            await sendCategoryList(messageObject.from, "Please choose category to start browsing our store", messageObject.sessionId)
         }
 
     }
