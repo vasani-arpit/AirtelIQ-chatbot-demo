@@ -113,7 +113,7 @@ export const checkImage = async (filePath: string) => {
                 reject(error);
                 return;
             }
-            resolve(JSON.parse(stdout));
+            resolve(stdout);
         });
     })
 
