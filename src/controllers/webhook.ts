@@ -23,7 +23,8 @@ export class webhookController {
     @Middleware([...validationMiddleware, payloadCheck])
     private async add(req: Request, res: Response) {
         // Logging the body to see what I am getting 
-        Logger.Info(req.body, true);
+        // Logger.Info(req.body, true);
+        console.log(JSON.stringify(req.body))
         //replying with 200 OK so that WA won't call the webhook again
         res.status(StatusCodes.OK).json({
             message: 'add_called',
@@ -31,10 +32,10 @@ export class webhookController {
 
         const messageObject = req.body as webhookMessage
 
-        if (messageObject.message.type == "image" && messageObject.image != undefined) {
+        if (messageObject.message.type == "image" && messageObject.message.image != undefined) {
             // downloadoing the image
             await sendTextMessage(messageObject.from, "Please wait while I check your image.😊", messageObject.sessionId)
-            const filePath = await downloadImage(messageObject.from, messageObject.image.id, messageObject.businessId, messageObject.sessionId)
+            const filePath = await downloadImage(messageObject.from, messageObject.message.image.id, messageObject.businessId, messageObject.sessionId)
             console.log({ filePath })
         } else if (messageObject.message.type == "text") {
             switch (messageObject.message.text.body) {

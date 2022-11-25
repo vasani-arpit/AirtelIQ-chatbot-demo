@@ -4,16 +4,16 @@ export interface webhookMessage {
     sessionId: string
     from: string
     businessId: string
-    image?: {
-        id: string,
-        mime_type: string
-    }
 }
 
 export interface Message {
     text: Text
     type: string
-    timestamp: number
+    timestamp: number,
+    image?: {
+        id: string,
+        mime_type: string
+    }
 }
 
 export interface Text {
