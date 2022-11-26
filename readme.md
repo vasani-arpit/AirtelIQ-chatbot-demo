@@ -12,9 +12,10 @@ Ecommerce sector already have lot of users but if they want to reach the whatsap
 Customer can explore products of bussiness, that is given. But if you send an image of a product to the bussiness then bot will be able to find the matching product and will tell customer whether that product is in stock or not. and also will be able to take an order without need to write to bussiness. 
 
 ### Try it out, It's live
+The following link will redirect you to demo whatsapp number. 
 https://wa.me/918904587352?text=Hi
 
-please bare with latency. AirtelIQ's servers are not as fast as I expected. 🤷
+*please bare with latency. AirtelIQ's servers are not as fast as I expected. 🤷*
 
 ## Video demo
 
