@@ -15,8 +15,6 @@ Customer can explore products of bussiness, that is given. But if you send an im
 The following link will redirect you to demo whatsapp number. 
 https://wa.me/918904587352?text=Hi
 
-*please bare with latency. AirtelIQ's servers are not as fast as I expected. 🤷*
-
 ## Video demo
 
 
