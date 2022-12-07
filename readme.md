@@ -46,3 +46,7 @@ If you have any questions feel free to contact me on following channels/platform
 [![Contact me on twitter][twitter_logo]][twitter]
 [![Contact me on telegram][telegram_logo]][telegram]
 [![Mail me][gmail_logo]][gmail]
+
+## 📃 Legal
+Commercial use of this code/repo is strictly prohibited. rest of terms are defined in license.md file.
+
